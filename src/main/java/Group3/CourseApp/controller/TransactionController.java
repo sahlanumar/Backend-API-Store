@@ -1,0 +1,119 @@
+package Group3.CourseApp.controller;
+
+
+import Group3.CourseApp.Service.TransactionService;
+import Group3.CourseApp.constant.ApiEndpoint;
+import Group3.CourseApp.constant.PaymentMethod;
+import Group3.CourseApp.constant.TransactionStatus;
+import Group3.CourseApp.dto.request.TransactionRequest;
+import Group3.CourseApp.dto.response.CommonResponse;
+import Group3.CourseApp.dto.response.GetAllTransactionResponse;
+import Group3.CourseApp.dto.response.TransactionReportResponse;
+import Group3.CourseApp.dto.response.TransactionResponse;
+import Group3.CourseApp.util.ResponseUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@RequestMapping(ApiEndpoint.TRANSACTION)
+@RequiredArgsConstructor
+public class TransactionController {
+
+    private final TransactionService transactionService;
+
+    @PostMapping
+    public ResponseEntity<CommonResponse<TransactionResponse>> createTransaction(@RequestBody TransactionRequest request) {
+        TransactionResponse response = transactionService.createTransaction(request);
+        return ResponseUtil.buildResponse(HttpStatus.CREATED, "Transaction created successfully", response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CommonResponse<TransactionResponse>> getTransactionById(@PathVariable String id) {
+        TransactionResponse response = transactionService.findById(id);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Transaction retrieved successfully", response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonResponse<Void>> deleteTransaction(@PathVariable String id) {
+        transactionService.deleteTransactionById(id);
+        return ResponseUtil.buildResponse(HttpStatus.NO_CONTENT, "Transaction deleted successfully", null);
+    }
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<CommonResponse<TransactionResponse>> cancelTransaction(@PathVariable String id) {
+        TransactionResponse response = transactionService.cancelTransaction(id);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Transaction cancelled successfully", response);
+    }
+
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<CommonResponse<TransactionResponse>> completeTransaction(
+            @PathVariable String id,
+            @RequestParam PaymentMethod paymentMethod) {
+        TransactionResponse response = transactionService.completeTransaction(id, paymentMethod);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Transaction completed successfully", response);
+    }
+
+    @GetMapping
+    public ResponseEntity<CommonResponse<List<GetAllTransactionResponse>>> getAllTransactions(
+            @RequestParam(defaultValue = "2000-01-01") LocalDate startDate,
+            @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}")  LocalDate endDate,
+            @RequestParam(required = false) String customerName,
+            @RequestParam(required = false) List<TransactionStatus> paymentStatuses,
+            @RequestParam(required = false) List<PaymentMethod> paymentMethods,
+            @RequestParam(required = false) String createdBy,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "transactionTime") String sortField,
+            @RequestParam(defaultValue = "desc") String sortDirection
+    ) {
+        Page<GetAllTransactionResponse> response = transactionService.getAllTransactionsDate(
+                startDate, endDate, customerName, paymentStatuses, paymentMethods, createdBy, page, size, sortField, sortDirection
+        );
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Transactions retrieved successfully", response.getContent(), response);
+    }
+
+    @GetMapping("/report/total-paid")
+    public ResponseEntity<CommonResponse<TransactionReportResponse>> getTotalPaidByCustomer(
+            @RequestParam String customerId,
+            @RequestParam(defaultValue = "2000-01-01") LocalDate startDate,
+            @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}")  LocalDate endDate
+    ) {
+        TransactionReportResponse response = transactionService.getTotalAmountPaidByCustomerBetweenDates(customerId, startDate, endDate);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Total amount paid by customer retrieved successfully", response);
+    }
+
+    @GetMapping("/report/pdf")
+    public ResponseEntity<byte[]> downloadCustomerReportPdf(
+            @RequestParam(defaultValue = "2000-01-01") LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate
+    ) {
+        if (endDate == null) {
+            endDate = LocalDate.now();
+        }
+
+        byte[] pdfBytes = transactionService.generateCustomerReportPdf(startDate, endDate);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition
+                .attachment()
+                .filename("customer-transaction-report.pdf")
+                .build());
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+
+
+    @GetMapping("/report/total-paid-per-product")
+    public ResponseEntity<CommonResponse<List<TransactionReportResponse>>> getTotalPaidPerProduct() {
+        List<TransactionReportResponse> response = transactionService.getTotalAmountPaidPerProduct();
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Total amount paid per product retrieved successfully", response);
+    }
+}
+

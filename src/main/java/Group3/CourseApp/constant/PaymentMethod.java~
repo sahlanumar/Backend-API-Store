@@ -1,0 +1,5 @@
+package Group3.CourseApp.constant;
+
+public enum PaymentMethod {
+    
+}

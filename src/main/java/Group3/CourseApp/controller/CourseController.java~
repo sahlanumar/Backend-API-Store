@@ -1,0 +1,56 @@
+package Group3.CourseApp.controller;
+
+import Group3.CourseApp.Service.CourseService;
+import Group3.CourseApp.constant.ApiEndpoint;
+import Group3.CourseApp.dto.request.CourseRequest;
+import Group3.CourseApp.dto.response.CommonResponse;
+import Group3.CourseApp.dto.response.UserResponse;
+import Group3.CourseApp.dto.response.course.CourseGetAllResponse;
+import Group3.CourseApp.dto.response.course.CourseResponse;
+import Group3.CourseApp.util.ResponseUtil;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(ApiEndpoint.COURSE)
+@RequiredArgsConstructor
+public class CourseController {
+    private final CourseService courseService;
+
+    @PostMapping
+    public ResponseEntity<CommonResponse<CourseResponse>> createCourse(@Valid @RequestBody CourseRequest courseRequest) {
+        CourseResponse courseResponse = courseService.createResponse(courseRequest);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Success", courseResponse);
+    }
+
+    @GetMapping("/{courseId}")
+    public ResponseEntity<CommonResponse<CourseResponse>> getCourseById(@PathVariable String courseId) {
+        CourseResponse courseResponse = courseService.getCourseById(courseId);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Success", courseResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<CommonResponse<List<CourseGetAllResponse>>> getAllCourse(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name,asc") String[] sort) {
+        String sortField = sort[0];
+        String sortDirection = (sort.length > 1) ? sort[1] : "asc";
+        Page<CourseGetAllResponse> courseGetAllResponses = courseService.getAllCourse(page, size, sortField, sortDirection);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Success", courseGetAllResponses.getContent(), courseGetAllResponses);
+    }
+
+    @PutMapping("/{courseId}")
+    public ResponseEntity<CommonResponse<CourseResponse>> updateCourse(@PathVariable String courseId, @Valid @RequestBody CourseRequest courseRequest) {
+        CourseResponse courseResponse = courseService.updateCourse(courseId, courseRequest);
+        return ResponseUtil.buildResponse(HttpStatus.OK, "Success", courseResponse);
+    }
+
+    
+}

@@ -1,0 +1,170 @@
+package Group3.CourseApp.Service.ServiceImpl;
+
+import Group3.CourseApp.Service.CourseService;
+import Group3.CourseApp.Service.CourseTransactionService;
+import Group3.CourseApp.Service.UserService;
+import Group3.CourseApp.constant.ApprovalStatus;
+import Group3.CourseApp.dto.request.CourseTransactionRequest;
+import Group3.CourseApp.dto.response.JwtClaims;
+import Group3.CourseApp.dto.response.courseTransaction.CourseTransactionGetAllResponse;
+import Group3.CourseApp.dto.response.courseTransaction.CourseTransactionResponse;
+import Group3.CourseApp.dto.response.simple.SimpleCourse3Response;
+import Group3.CourseApp.dto.response.simple.SimpleUser2Response;
+import Group3.CourseApp.entity.Course;
+import Group3.CourseApp.entity.CourseTransaction;
+import Group3.CourseApp.entity.User;
+import Group3.CourseApp.repository.CourseTransactionRepository;
+import Group3.CourseApp.security.JwtUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+@RequiredArgsConstructor
+public class CourseTransactionServiceImpl implements CourseTransactionService {
+    private final CourseTransactionRepository courseTransactionRepository;
+    private final CourseService courseService;
+    private final UserService userService;
+    private final JwtUtils jwtUtils;
+
+    public CourseTransactionResponse createTransaction(CourseTransactionRequest courseTransactionRequest) {
+        Course course = courseService.findById(courseTransactionRequest.getCourseId());
+        String token = jwtUtils.getTokenFromHeader();
+        jwtUtils.validateJwtToken(token);
+        String username = jwtUtils.getUsernameFromJwtToken(token);
+        User student = userService.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        CourseTransaction courseTransaction = CourseTransaction.builder()
+                .student(student)
+                .course(course)
+                .priceAtTransaction(course.getPrice())
+                .createdAt(LocalDateTime.now())
+                .status(ApprovalStatus.PENDING)
+                .build();
+
+
+        courseTransactionRepository.save(courseTransaction);
+
+        CourseTransactionResponse courseTransactionResponse = CourseTransactionResponse.builder()
+                .transactionId(courseTransaction.getTransactionId())
+                .status(courseTransaction.getStatus().name())
+                .student(SimpleUser2Response.builder()
+                        .name(student.getUsername())
+                        .userId(student.getUserId())
+                        .build())
+                .course(SimpleCourse3Response.builder()
+                        .courseId(course.getId())
+                        .name(course.getName())
+                        .price(course.getPrice())
+                        .build())
+                .requestedAt(courseTransaction.getCreatedAt())
+                .approverBy(null)
+                .approvalDate(null)
+                .build();
+
+        return courseTransactionResponse;
+    }
+
+    @Override
+    public CourseTransactionResponse getTransactionById(String transactionId) {
+        CourseTransaction courseTransaction = courseTransactionRepository.findById(transactionId).orElseThrow(() -> new RuntimeException("Transaction not found"));
+        User approverBy = courseTransaction.getApproverBy();
+        LocalDateTime approvalDate = null;
+        if(courseTransaction.getApprovedAt() != null){
+            approvalDate = courseTransaction.getApprovedAt();
+        }
+
+        SimpleUser2Response simpleUser2Response = null;
+        if(approverBy != null){
+            simpleUser2Response = SimpleUser2Response.builder().name(approverBy.getUsername()).userId(approverBy.getUserId()).build();
+        }
+
+        CourseTransactionResponse courseTransactionResponse = CourseTransactionResponse.builder()
+                .transactionId(courseTransaction.getTransactionId())
+                .status(courseTransaction.getStatus().name())
+                .student(SimpleUser2Response.builder()
+                        .name(courseTransaction.getStudent().getUsername())
+                        .userId(courseTransaction.getStudent().getUserId())
+                        .build())
+                .course(SimpleCourse3Response.builder()
+                        .courseId(courseTransaction.getCourse().getId())
+                        .name(courseTransaction.getCourse().getName())
+                        .price(courseTransaction.getCourse().getPrice())
+                        .build())
+                .requestedAt(courseTransaction.getCreatedAt())
+                .approverBy(simpleUser2Response)
+                .approvalDate(approvalDate)
+                .build();
+        return courseTransactionResponse;
+    }
+
+    @Override
+    public CourseTransactionResponse approveTransaction(String transactionId) {
+        String token = jwtUtils.getTokenFromHeader();
+        jwtUtils.validateJwtToken(token);
+        String username = jwtUtils.getUsernameFromJwtToken(token);
+        User approver = userService.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        CourseTransaction courseTransaction = courseTransactionRepository.findById(transactionId).orElseThrow(() -> new RuntimeException("Transaction not found"));
+        courseTransaction.setApproverBy(approver);
+        courseTransaction.setStatus(ApprovalStatus.APPROVED);
+        courseTransaction.setApprovedAt(LocalDateTime.now());
+        courseTransactionRepository.save(courseTransaction);
+
+        CourseTransactionResponse courseTransactionResponse = CourseTransactionResponse.builder()
+                .transactionId(courseTransaction.getTransactionId())
+                .status(courseTransaction.getStatus().name())
+                .student(SimpleUser2Response.builder()
+                        .name(courseTransaction.getStudent().getUsername())
+                        .userId(courseTransaction.getStudent().getUserId())
+                        .build())
+                .course(SimpleCourse3Response.builder()
+                        .courseId(courseTransaction.getCourse().getId())
+                        .name(courseTransaction.getCourse().getName())
+                        .price(courseTransaction.getCourse().getPrice())
+                        .build())
+                .requestedAt(courseTransaction.getCreatedAt())
+                .approverBy(SimpleUser2Response.builder()
+                        .name(approver.getUsername())
+                        .userId(approver.getUserId())
+                        .build())
+                .approvalDate(courseTransaction.getApprovedAt())
+                .build();
+        return courseTransactionResponse;
+    }
+
+    @Override
+    public Page<CourseTransactionGetAllResponse> getAllTransaction(ApprovalStatus approvalStatus, int page, int size, String sortField, String sortDirection) {
+        Sort sort = Sort.by(sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Specification<CourseTransaction> spec = Specification.where(CourseTransactionSpecification.hasStatus(approvalStatus));
+
+        Page<CourseTransaction> courseTransactionPage = courseTransactionRepository.findAll(pageable);
+
+        Page<CourseTransactionGetAllResponse> courseTransactionResponsePage = courseTransactionPage.map(courseTransaction -> CourseTransactionGetAllResponse.builder()
+                .transactionId(courseTransaction.getTransactionId())
+                .status(courseTransaction.getStatus().name())
+                .studentName(courseTransaction.getStudent().getUsername())
+                .courseName(courseTransaction.getCourse().getName())
+                .requestedAt(courseTransaction.getCreatedAt())
+                .build());
+        return courseTransactionResponsePage;
+    }
+
+    private class CourseTransactionSpecification  {
+
+        public static Specification<CourseTransaction> hasStatus(ApprovalStatus approvalStatus) {
+            return (root, query, cb) -> cb.equal(root.get("status"), approvalStatus);
+        }
+    }
+
+
+}

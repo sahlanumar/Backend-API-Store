@@ -1,0 +1,1300 @@
+{
+	"info": {
+		"_postman_id": "187363d4-8ce6-4be6-9215-de0cf589b3bd",
+		"name": "Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42799526",
+		"_collection_link": "https://gosling7.postman.co/workspace/Gosling7~cdc46dd2-50c2-4032-8b7c-e6496739a384/collection/42799526-187363d4-8ce6-4be6-9215-de0cf589b3bd?action=share&source=collection_link&creator=42799526"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "AkuAdmin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "superAdminKey",
+								"value": "OnePieceIsOverRated",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin22\",\r\n    \"email\" : \"admin22@gmail.com\",\r\n    \"password\" : \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register-admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkc2FkYXNkYXNkc2FkYSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzQ2MTUwMDM5LCJleHAiOjE3NDYxNTM2MzksImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.LjGdXFStXCEt_Kg0atTUcGdJNuRNzrbyike3Qp24R48",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"customer\",\r\n    \"password\" : \"customer123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AkuStaff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzQ2MzIzNTgzLCJleHAiOjE3NDYzMjcxODMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.INVwyYtBZVbMuc60NYsdPl6sujKcVP11LkNN_gqh8cE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"staff\",\r\n    \"email\" : \"staff@gmail.com\",\r\n    \"password\" : \"staff123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register-staff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register-staff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AkuCustomer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"dsadsada\",\r\n    \"email\" : \"dsadasda@gmail.com\",\r\n    \"password\" : \"customer123\",\r\n    \"name\" : \"eren yeaer\",\r\n    \"birthPlace\" : \"paradise\",\r\n    \"birthDate\" : \"16-07-02\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register-customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register-customer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/2acf47fb-994a-4d6d-8824-89ee37543d92",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"2acf47fb-994a-4d6d-8824-89ee37543d92"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBylogin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"email\" : null,\r\n  \"password\":null\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dellet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/users/3b956cf3-447b-4dfc-9885-9009a6560fb5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"3b956cf3-447b-4dfc-9885-9009a6560fb5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"email\" : null,\r\n  \"password\":null\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/22c2e3e5-91a3-4bc1-ac47-ea056dc78409",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"22c2e3e5-91a3-4bc1-ac47-ea056dc78409"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customers/d4ecbdb4-4995-472b-872f-6e2ac9410a42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers",
+								"d4ecbdb4-4995-472b-872f-6e2ac9410a42"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/customers?page=0&size=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBylogin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2MzM2OTgzLCJleHAiOjE3NDYzNDA1ODMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.e2vHbELiCf1rWYrTbe-4nITgeL2BSNZLRPdxwfSX88I",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"eren yeager\",\r\n  \"birthDate\" : null,\r\n  \"birthPlace\":null\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"eren yeager\",\r\n  \"birthDate\" : \"16-02-02\",\r\n  \"birthPlace\":null\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customers/d4ecbdb4-4995-472b-872f-6e2ac9410a42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers",
+								"d4ecbdb4-4995-472b-872f-6e2ac9410a42"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dellet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/customers/cd5ac555-3597-4bb3-8b20-2b6e20423997",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customers",
+								"cd5ac555-3597-4bb3-8b20-2b6e20423997"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tax",
+			"item": [
+				{
+					"name": "AddTax",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"service\",\r\n  \"rate\": 10\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/taxes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"taxes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/taxes/d2e77c5f-c96f-438f-b020-bbdc4fac07f7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"taxes",
+								"d2e77c5f-c96f-438f-b020-bbdc4fac07f7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/taxes?page=0&size=10&",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"taxes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Pajak Penjualan\",\r\n  \"rate\": 12\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/taxes/d2e77c5f-c96f-438f-b020-bbdc4fac07f7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"taxes",
+								"d2e77c5f-c96f-438f-b020-bbdc4fac07f7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dellet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/taxes/9a98971d-189f-4aea-9857-ad79ba5dcb72",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"taxes",
+								"9a98971d-189f-4aea-9857-ad79ba5dcb72"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "AddProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Laptop Asus ROG limit edition\",\r\n  \"price\": 25000000,\r\n  \"taxesId\": [\r\n    \"d9ef03ff-0a70-490c-bc08-958045cfbb06\"\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/ff86a5f1-5bfb-42e0-8081-de6c4dc1250a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"ff86a5f1-5bfb-42e0-8081-de6c4dc1250a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/products?page=0&size=10&",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addtax to product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Laptop Asus ROG new edition\",\r\n  \"price\": 25000000,\r\n  \"taxesId\": [\r\n    \"d9ef03ff-0a70-490c-bc08-958045cfbb06\"\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2/tax/604f9226-1d95-4ef0-88d9-041acb7ac32a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"2614c16c-7698-4dd6-b4ed-6cd8be43c3e2",
+								"tax",
+								"604f9226-1d95-4ef0-88d9-041acb7ac32a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete tax from product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2/tax/604f9226-1d95-4ef0-88d9-041acb7ac32a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"2614c16c-7698-4dd6-b4ed-6cd8be43c3e2",
+								"tax",
+								"604f9226-1d95-4ef0-88d9-041acb7ac32a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateById",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Laptop Asus ROG rusak ternyata\",\r\n  \"price\": 20\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"2614c16c-7698-4dd6-b4ed-6cd8be43c3e2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dellet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"2614c16c-7698-4dd6-b4ed-6cd8be43c3e2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "AddTransaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"d4ecbdb4-4995-472b-872f-6e2ac9410a42\",\r\n  \"details\": [\r\n    {\r\n      \"productId\": \"25d8f076-d182-4a39-bc96-44417a17bbe1\",\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"productId\": \"ff86a5f1-5bfb-42e0-8081-de6c4dc1250a\",\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/034643d6-ec7f-43b5-bfe0-4626e1b06935",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"034643d6-ec7f-43b5-bfe0-4626e1b06935"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/transactions?startDate=2025-01-01&endDate=2025-12-31&customerName=eren&paymentStatuses=PAID,NOT_PAID&paymentMethods=CASH&createdBy=admin22&page=0&size=10&sortField=transactionTime&sortDirection=desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-31"
+								},
+								{
+									"key": "customerName",
+									"value": "eren"
+								},
+								{
+									"key": "paymentStatuses",
+									"value": "PAID,NOT_PAID"
+								},
+								{
+									"key": "paymentMethods",
+									"value": "CASH"
+								},
+								{
+									"key": "createdBy",
+									"value": "admin22"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sortField",
+									"value": "transactionTime"
+								},
+								{
+									"key": "sortDirection",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel tr",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/05c80c47-2627-44c1-ac14-498db1a3af22/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"05c80c47-2627-44c1-ac14-498db1a3af22",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay tr",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Laptop Asus ROG rusak ternyata\",\r\n  \"price\": 20\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/034643d6-ec7f-43b5-bfe0-4626e1b06935/complete?paymentMethod=CASH",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"034643d6-ec7f-43b5-bfe0-4626e1b06935",
+								"complete"
+							],
+							"query": [
+								{
+									"key": "paymentMethod",
+									"value": "CASH"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReportByCustomerId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/report/total-paid?customerId=d4ecbdb4-4995-472b-872f-6e2ac9410a42&startDate=2025-01-01&endDate=2025-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"report",
+								"total-paid"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "d4ecbdb4-4995-472b-872f-6e2ac9410a42"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReportAmountCusByLogin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2MzQyMjU1LCJleHAiOjE3NDYzNzgyNTUsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.A52yAHk0oVNm3O6NjlNVMl4X20ei_Pct6oPCxGYy2v8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/report/pdf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"report",
+								"pdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProductReport",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/report/total-paid-per-product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"report",
+								"total-paid-per-product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dellet",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/05c80c47-2627-44c1-ac14-498db1a3af22",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"05c80c47-2627-44c1-ac14-498db1a3af22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

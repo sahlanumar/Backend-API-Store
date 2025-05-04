@@ -1,0 +1,8 @@
+package Group3.CourseApp.constant;
+
+public class ApiEndpoint {
+    public static final String USER = "/api/public/users";
+    public static final String TAX = "/api/public/taxes";
+    public static final String PRODUCT = "/api/public/products";
+    public static final String TRANSACTION = "/api/public/transactions";
+}

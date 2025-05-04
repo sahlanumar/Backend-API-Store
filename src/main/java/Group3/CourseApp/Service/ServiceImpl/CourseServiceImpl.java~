@@ -1,0 +1,113 @@
+package Group3.CourseApp.Service.ServiceImpl;
+
+import Group3.CourseApp.Service.CourseService;
+import Group3.CourseApp.Service.UserService;
+import Group3.CourseApp.constant.ApprovalStatus;
+import Group3.CourseApp.dto.request.CourseRequest;
+import Group3.CourseApp.dto.response.course.CourseGetAllResponse;
+import Group3.CourseApp.dto.response.course.CourseResponse;
+import Group3.CourseApp.dto.response.simple.SimpleUser2Response;
+import Group3.CourseApp.dto.response.simple.SimpleUser3Response;
+import Group3.CourseApp.entity.Course;
+import Group3.CourseApp.entity.User;
+import Group3.CourseApp.repository.CourseRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class CourseServiceImpl implements CourseService {
+
+    private final CourseRepository courseRepository;
+    private final UserService UserServiceImpl;
+
+
+    @Override
+    public Course findById(String courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Course not found"));
+        return course;
+    }
+
+    public CourseResponse createResponse(CourseRequest courseRequest) {
+        User teacher = UserServiceImpl.findById(courseRequest.getTeacherId());
+        Course course = Course.builder()
+                .name(courseRequest.getName())
+                .description(courseRequest.getDescription())
+                .price(courseRequest.getPrice())
+                .isDeleted(false)
+                .teacher(teacher).build();
+
+        courseRepository.save(course);
+
+        CourseResponse courseResponse = CourseResponse.builder()
+                .name(course.getName())
+                .courseId(course.getId())
+                .description(course.getDescription())
+                .teacher(new SimpleUser3Response(teacher.getUserId(), teacher.getUsername(), teacher.getEmail()))
+                .price(course.getPrice())
+                .build();
+        return courseResponse;
+    }
+
+    @Override
+    public CourseResponse getCourseById(String courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("User not found"));
+        CourseResponse courseResponse = CourseResponse.builder()
+                .name(course.getName())
+                .courseId(course.getId())
+                .description(course.getDescription())
+                .teacher(new SimpleUser3Response(course.getTeacher().getUserId(), course.getTeacher().getUsername(), course.getTeacher().getEmail()))
+                .price(course.getPrice())
+                .build();
+        return courseResponse;
+    }
+
+    @Override
+    public Page<CourseGetAllResponse> getAllCourse(ApprovalStatus approvalStatus, int page, int size, String sortField, String sortDirection) {
+        Sort sort = Sort.by(sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Course> coursePage = courseRepository.findAll(pageable);
+
+        Page<CourseGetAllResponse> courseResponsePage = coursePage.map(course -> CourseGetAllResponse.builder()
+                .courseId(course.getId())
+                .name(course.getName())
+                .teacherName(course.getTeacher().getUsername())
+                .price(course.getPrice())
+                .build());
+        return courseResponsePage;
+    }
+
+    @Override
+    public CourseResponse updateCourse(String courseId, CourseRequest courseRequest) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("course not found"));
+
+        course.setName(courseRequest.getName());
+        course.setDescription(courseRequest.getDescription());
+        course.setPrice(courseRequest.getPrice());
+
+        courseRepository.save(course);
+
+        CourseResponse courseResponse = CourseResponse.builder()
+                .courseId(course.getId())
+                .name(course.getName())
+                .description(course.getDescription())
+                .teacher1(new SimpleUser2Response(course.getTeacher().getUserId(), course.getTeacher().getUsername()))
+                .price(course.getPrice())
+                .build();
+        return courseResponse;
+    }
+
+    @Override
+    public void deleteCourse(String courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("course not found"));
+        course.setIsDeleted(true);
+        courseRepository.save(course);
+    }
+
+
+}

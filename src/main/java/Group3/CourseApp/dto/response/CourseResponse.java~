@@ -1,0 +1,21 @@
+package Group3.CourseApp.dto.response;
+
+import Group3.CourseApp.dto.response.simple.SimpleUser2Response;
+import Group3.CourseApp.dto.response.simple.SimpleUser3Response;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CourseResponse {
+
+    private String courseId;
+    private String name;
+    private String description;
+    private SimpleUser2Response teacher;
+    private double price;
+}

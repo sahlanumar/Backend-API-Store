@@ -1,0 +1,38 @@
+package Group3.CourseApp.entity;
+
+import Group3.CourseApp.constant.ApprovalStatus;
+import Group3.CourseApp.constant.TableNames;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = TableNames.COURSE_TRANSACTION)
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CourseTransaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String transactionId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "student_id")
+    private User student;
+
+    
+    private Course course;
+    private double priceAtTransaction;
+    private ApprovalStatus status = ApprovalStatus.PENDING;
+    private User approverBy;
+    private LocalDateTime approvedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+}

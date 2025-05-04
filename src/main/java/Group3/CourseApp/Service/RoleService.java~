@@ -1,0 +1,13 @@
+package com.learning.step_by_step.service;
+import com.learning.step_by_step.constant.UserRole;
+import com.learning.step_by_step.entity.Role;
+
+import java.util.Optional;
+
+public interface RoleService {
+    Optional<Role> findByName(UserRole name);
+
+    Role save(Role role);
+
+    Role getOrCreate(UserRole name);
+}

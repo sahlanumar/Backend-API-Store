@@ -1,0 +1,4 @@
+package Group3.CourseApp.dto.request;
+
+public class TransactionRequest {
+}

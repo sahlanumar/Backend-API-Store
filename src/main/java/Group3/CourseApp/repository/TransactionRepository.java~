@@ -1,0 +1,4 @@
+package Group3.CourseApp.repository;
+
+public interface TransactionRepository {
+}

@@ -1,0 +1,9 @@
+package Group3.CourseApp.dto.request;
+
+import jakarta.validation.constraints.NotBlank;
+
+public class RegisterCustomer {
+
+    @NotBlank
+
+}

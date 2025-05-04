@@ -1,0 +1,264 @@
+package Group3.CourseApp.Service.ServiceImpl;
+
+import Group3.CourseApp.Service.CustomerService;
+import Group3.CourseApp.Service.ProductService;
+import Group3.CourseApp.Service.TransactionService;
+import Group3.CourseApp.Service.UserService;
+import Group3.CourseApp.constant.PaymentMethod;
+import Group3.CourseApp.constant.TransactionStatus;
+import Group3.CourseApp.dto.request.TransactionDetailRequest;
+import Group3.CourseApp.dto.request.TransactionRequest;
+import Group3.CourseApp.dto.response.GetAllTransactionResponse;
+import Group3.CourseApp.dto.response.ProductReportResponse;
+import Group3.CourseApp.dto.response.TransactionReportResponse;
+import Group3.CourseApp.dto.response.TransactionResponse;
+import Group3.CourseApp.entity.*;
+import Group3.CourseApp.exception.CustomException;
+import Group3.CourseApp.exception.ErrorCode;
+import Group3.CourseApp.mapper.TransactionMapper;
+import Group3.CourseApp.repository.TransactionDetailRepository;
+import Group3.CourseApp.repository.TransactionRepository;
+import Group3.CourseApp.security.JwtUtils;
+import jakarta.persistence.criteria.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class TransactionServiceImpl implements TransactionService {
+
+    private final TransactionRepository transactionRepository;
+    private final TransactionDetailRepository transactionDetailRepository;
+    private final ProductService productService;
+    private final CustomerService customerService;
+    private final UserService userService;
+    private final JwtUtils jwtUtils;
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
+        Customer customer = customerService.findCustomerById(transactionRequest.getCustomerId());
+
+        Transaction transaction = Transaction.builder()
+                .transactionTime(LocalDateTime.now())
+                .customer(customer)
+                .paymentStatus(TransactionStatus.NOT_PAID)
+                .build();
+
+        double netAmountPaid = 0;
+        double totalTaxPaid = 0;
+        double totalAmountPaid = 0;
+
+        for (TransactionDetailRequest detailRequest : transactionRequest.getDetails()) {
+            Product product = productService.findProductById(detailRequest.getProductId());
+            Double netPrice = product.getPrice() * detailRequest.getQuantity();
+            Double taxAmount = netPrice * product.getTaxes().stream().mapToInt(Tax -> Tax.getRate()).sum() / 100;
+            Double totalPrice = netPrice + taxAmount;
+
+
+            TransactionDetail transactionDetail = TransactionDetail.builder()
+                    .product(product)
+                    .quantity(detailRequest.getQuantity())
+                    .transaction(transaction)
+                    .netPrice(netPrice)
+                    .taxAmount(taxAmount)
+                    .totalPrice(totalPrice)
+                    .build();
+
+            transaction.getDetails().add(transactionDetail);
+
+            netAmountPaid += netPrice;
+            totalTaxPaid += taxAmount;
+            totalAmountPaid += totalPrice;
+        }
+
+        transaction.setNetAmountPaid(netAmountPaid);
+        transaction.setTotalTaxPaid(totalTaxPaid);
+        transaction.setTotalAmountPaid(totalAmountPaid);
+
+        String token = jwtUtils.getTokenFromHeader();
+        jwtUtils.validateJwtToken(token);
+        String nameCreator = jwtUtils.getUsernameFromJwtToken(token);
+
+        transaction.setCreatedBy(nameCreator);
+        transactionRepository.save(transaction);
+
+        return TransactionMapper.toTransactionResponse(transaction);
+    }
+
+    @Override
+    public TransactionResponse findById(String id) {
+        Transaction transaction = findTransactionById(id);
+        return TransactionMapper.toTransactionResponse(transaction);
+    }
+
+    @Override
+    public void deleteTransactionById(String id) {
+        Transaction transaction = findTransactionById(id);
+        transactionRepository.delete(transaction);
+    }
+
+    @Override
+    public TransactionResponse cancelTransaction(String id) {
+        Transaction transaction = findTransactionById(id);
+        transaction.setPaymentStatus(TransactionStatus.CANCELLED);
+        transactionRepository.save(transaction);
+        return TransactionMapper.toTransactionResponse(transaction);
+    }
+
+    @Override
+    public TransactionResponse completeTransaction(String id, PaymentMethod paymentMethod) {
+        Transaction transaction = findTransactionById(id);
+        transaction.setPaymentMethod(paymentMethod);
+        transaction.setPaymentStatus(TransactionStatus.PAID);
+        transactionRepository.save(transaction);
+        return TransactionMapper.toTransactionResponse(transaction);
+    }
+
+    @Override
+    public Page<GetAllTransactionResponse> getAllTransactionsDate(
+            LocalDate startDate,
+            LocalDate endDate,
+            String customerName,
+            List<TransactionStatus> paymentStatuses,
+            List<PaymentMethod> paymentMethods,
+            String createdBy,
+            int page,
+            int size,
+            String sortField,
+            String sortDirection
+    ) {
+        Sort sort = Sort.by(sortDirection.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Specification<Transaction> spec = TransactionSpecification.filterTransactions(
+                startDate,
+                endDate,
+                customerName,
+                paymentStatuses,
+                paymentMethods,
+                createdBy
+        );
+
+        Page<Transaction> transactionPage = transactionRepository.findAll(spec, pageable);
+
+        Page<GetAllTransactionResponse> transactionResponsePage = transactionPage.map(TransactionMapper::toGetAllTransactionResponse);
+        return transactionResponsePage;
+    }
+
+    @Override
+    public TransactionReportResponse getTotalAmountPaidByCustomerBetweenDates(String customerId, LocalDate startDate, LocalDate endDate) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+
+        Specification<Transaction> spec = TransactionSpecification.filterByCustomerAndDateRange(customerId, startDateTime, endDateTime);
+
+        List<Transaction> transactions = transactionRepository.findAll(spec);
+        double totalAmount = transactions.stream()
+                .mapToDouble(Transaction::getTotalAmountPaid)
+                .sum();
+
+        String customerName = transactions.isEmpty() ? "No Transaction" : transactions.get(0).getCustomer().getName();
+
+        return TransactionReportResponse.builder()
+                .name(customerName)
+                .amount(totalAmount)
+                .build();
+    }
+
+    @Override
+    public TransactionReportResponse financialReportCustomer(LocalDate startDate, LocalDate endDate) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+
+        String token = jwtUtils.getTokenFromHeader();
+        jwtUtils.validateJwtToken(token);
+        String username = jwtUtils.getUsernameFromJwtToken(token);
+        User user = userService.findByUsername(username).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        Customer customer = customerService.findCustomerById(user.getUserId());
+
+        Specification<Transaction> spec = TransactionSpecification.filterByCustomerAndDateRange(customer.getId(), startDateTime, endDateTime);
+
+        List<Transaction> transactions = transactionRepository.findAll(spec);
+        double totalAmount = transactions.stream()
+                .mapToDouble(Transaction::getTotalAmountPaid)
+                .sum();
+
+        String customerName = transactions.isEmpty() ? "Unknown" : transactions.get(0).getCustomer().getName();
+
+        return TransactionReportResponse.builder()
+                .name(customerName)
+                .amount(totalAmount)
+                .build();
+    }
+
+    public List<TransactionReportResponse> getTotalAmountPaidPerProduct() {
+        return transactionDetailRepository.getTotalAmountPaidPerProduct();
+    }
+
+
+    public Transaction findTransactionById(String id) {
+        return transactionRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.TRANSACTION_NOT_FOUND));
+    }
+
+    public class TransactionSpecification {
+
+        public static Specification<Transaction> filterTransactions(LocalDate startDate, LocalDate endDate, String customerName, List<TransactionStatus> statuses, List<PaymentMethod> methods, String createdBy) {
+            return (Root<Transaction> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+                Predicate predicate = cb.conjunction();
+
+                if (startDate != null && endDate != null) {
+                    predicate = cb.and(predicate, cb.between(root.get("transactionTime"), startDate, endDate));
+                }
+
+                if (customerName != null && !customerName.isEmpty()) {
+                    Join<Object, Object> customer = root.join("customer");
+                    predicate = cb.and(predicate, cb.like(cb.lower(customer.get("name")), "%" + customerName.toLowerCase() + "%"));
+                }
+
+                if (statuses != null && !statuses.isEmpty()) {
+                    predicate = cb.and(predicate, root.get("paymentStatus").in(statuses));
+                }
+
+                if (methods != null && !methods.isEmpty()) {
+                    predicate = cb.and(predicate, root.get("paymentMethod").in(methods));
+                }
+
+                if (createdBy != null && !createdBy.isEmpty()) {
+                    predicate = cb.and(predicate, cb.equal(root.get("createdBy"), createdBy));
+                }
+
+                return predicate;
+            };
+        }
+        public static Specification<Transaction> filterByCustomerAndDateRange(String customerId, LocalDateTime startDate, LocalDateTime endDate) {
+            return (root, query, cb) -> {
+                Predicate predicate = cb.conjunction();
+
+                if (customerId != null) {
+                    predicate = cb.and(predicate, cb.equal(root.get("customer").get("id"), customerId));
+                }
+
+                if (startDate != null && endDate != null) {
+                    predicate = cb.and(predicate, cb.between(root.get("transactionTime"), startDate, endDate));
+                }
+
+                return predicate;
+            };
+        }
+    }
+
+}

@@ -1,0 +1,149 @@
+package Group3.CourseApp.Service.ServiceImpl;
+
+
+import Group3.CourseApp.Service.UserService;
+import Group3.CourseApp.constant.UserRole;
+import Group3.CourseApp.dto.request.UserUpdateRequest;
+import Group3.CourseApp.dto.response.UserResponse;
+import Group3.CourseApp.entity.Customer;
+import Group3.CourseApp.entity.Role;
+import Group3.CourseApp.entity.User;
+import Group3.CourseApp.exception.CustomException;
+import Group3.CourseApp.exception.ErrorCode;
+import Group3.CourseApp.mapper.UserMapper;
+import Group3.CourseApp.repository.UserRepository;
+import Group3.CourseApp.security.JwtUtils;
+import jakarta.persistence.criteria.Join;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final JwtUtils jwtUtils;
+
+    @Override
+    @Transactional
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Page<UserResponse> findAll(UserRole role, int page, int size, String sortField, String sortDirection) {
+        Sort sort = Sort.by(sortDirection.equalsIgnoreCase("asc") ?
+                Sort.Direction.ASC : Sort.Direction.DESC, sortField);
+
+        // Create pageable
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Specification<User> spec = Specification.where(UserSpecification.hasCategory(role));
+
+        Page<User> userPage = userRepository.findAll(spec, pageable);
+
+        Page<UserResponse> userResponsePage = userPage.map(UserMapper::toUserResponse); ;
+        return userResponsePage;
+    }
+
+    @Override
+    public UserResponse update(String id, UserUpdateRequest userUpdateRequest) {
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        if (userUpdateRequest.getUsername() != null) {
+            user.setUsername(userUpdateRequest.getUsername());
+        }
+        if (userUpdateRequest.getEmail() != null) {
+            user.setEmail(userUpdateRequest.getEmail());
+        }
+        if (userUpdateRequest.getPassword() != null) {
+            user.setPassword(userUpdateRequest.getPassword());
+        }
+
+        userRepository.save(user);
+
+        return UserMapper.toUserResponse(user);
+    }
+
+    @Override
+    public UserResponse updateByLogin(UserUpdateRequest userUpdateRequest) {
+        String token = jwtUtils.getTokenFromHeader();
+        jwtUtils.validateJwtToken(token);
+        String username = jwtUtils.getUsernameFromJwtToken(token);
+
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        if (userUpdateRequest.getUsername() != null) {
+            user.setUsername(userUpdateRequest.getUsername());
+        }
+        if (userUpdateRequest.getEmail() != null) {
+            user.setEmail(userUpdateRequest.getEmail());
+        }
+        if (userUpdateRequest.getPassword() != null) {
+            user.setPassword(userUpdateRequest.getPassword());
+        }
+
+        userRepository.save(user);
+
+        return UserMapper.toUserResponse(user);
+
+    }
+
+    @Override
+    public User findById(String id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return user;
+    }
+
+    @Override
+    public void delete(String id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.delete(user);
+    }
+
+    @Override
+    public UserResponse getUserById(String id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return UserMapper.toUserResponse(user);
+    }
+
+    private class UserSpecification {
+        public static Specification<User> hasCategory(UserRole role) {
+            return (root, query, cb) -> {
+                if (role == null) {
+                    return cb.conjunction(); 
+                }
+                Join<User, Role> roleJoin = root.join("roles");
+                return cb.equal(roleJoin.get("name"), role);
+            };
+        }
+    }
+}
+
