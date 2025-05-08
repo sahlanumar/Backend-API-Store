@@ -60,7 +60,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"customer\",\r\n    \"password\" : \"customer123\"\r\n}",
+							"raw": "{\r\n    \"username\" : \"admin22\",\r\n    \"password\" : \"admin123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -693,13 +693,34 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDY2OTM3MjcsImV4cCI6MTc0NjcyOTcyNywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.81hLl_9NBwT24Zuq9I9evwkLLg7HFnh2Mpac8jIcsCU",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Laptop Asus ROG limit edition\",\r\n  \"price\": 25000000,\r\n  \"taxesId\": [\r\n    \"d9ef03ff-0a70-490c-bc08-958045cfbb06\"\r\n  ]\r\n}\r\n",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1f02be83-9fd8-4b50-bf5c-3c2475643f53"
+								},
+								{
+									"key": "name",
+									"value": "Laptop Asus ROG limit edition",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "25000000",
+									"type": "text"
+								},
+								{
+									"key": "taxesId",
+									"value": "d9ef03ff-0a70-490c-bc08-958045cfbb06",
+									"type": "text"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -731,7 +752,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDY2OTM3MjcsImV4cCI6MTc0NjcyOTcyNywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.81hLl_9NBwT24Zuq9I9evwkLLg7HFnh2Mpac8jIcsCU",
 								"type": "text"
 							}
 						],
@@ -745,7 +766,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products/ff86a5f1-5bfb-42e0-8081-de6c4dc1250a",
+							"raw": "http://localhost:8080/api/products/bd639e04-8522-44f9-9e84-b69adad0e513",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -754,7 +775,7 @@
 							"path": [
 								"api",
 								"products",
-								"ff86a5f1-5bfb-42e0-8081-de6c4dc1250a"
+								"bd639e04-8522-44f9-9e84-b69adad0e513"
 							]
 						}
 					},
@@ -812,8 +833,14 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Laptop Asus ROG new edition\",\r\n  \"price\": 25000000,\r\n  \"taxesId\": [\r\n    \"d9ef03ff-0a70-490c-bc08-958045cfbb06\"\r\n  ]\r\n}\r\n",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1f02beac-8f3d-4510-9d96-2f360ac40659"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -845,7 +872,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2NDA1OTczLCJleHAiOjE3NDY0NDE5NzMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.gfaFa59k-eCwDLZeN0uATHsUhZiVT9oXDSlffBEOpEk",
 								"type": "text"
 							}
 						],
@@ -874,13 +901,29 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDY2OTM3MjcsImV4cCI6MTc0NjcyOTcyNywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.81hLl_9NBwT24Zuq9I9evwkLLg7HFnh2Mpac8jIcsCU",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Laptop Asus ROG rusak ternyata\",\r\n  \"price\": 20\r\n}\r\n\r\n",
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Irfan/Pictures/Image20250430131032.png"
+								},
+								{
+									"key": "name",
+									"value": "laptop pallad",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "20",
+									"type": "text"
+								}
+							],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -888,7 +931,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2",
+							"raw": "http://localhost:8080/api/products/bd639e04-8522-44f9-9e84-b69adad0e513",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -897,7 +940,7 @@
 							"path": [
 								"api",
 								"products",
-								"2614c16c-7698-4dd6-b4ed-6cd8be43c3e2"
+								"bd639e04-8522-44f9-9e84-b69adad0e513"
 							]
 						}
 					},
@@ -1127,7 +1170,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Laptop Asus ROG rusak ternyata\",\r\n  \"price\": 20\r\n}\r\n\r\n",
+							"raw": "\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1206,7 +1249,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2MzQyMjU1LCJleHAiOjE3NDYzNzgyNTUsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.A52yAHk0oVNm3O6NjlNVMl4X20ei_Pct6oPCxGYy2v8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2NDA1OTczLCJleHAiOjE3NDY0NDE5NzMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.gfaFa59k-eCwDLZeN0uATHsUhZiVT9oXDSlffBEOpEk",
 								"type": "text"
 							}
 						],
@@ -1289,6 +1332,37 @@
 								"api",
 								"transactions",
 								"05c80c47-2627-44c1-ac14-498db1a3af22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1f029689-6326-4cb0-bd89-831f7c0a0dee"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/transactions/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"transactions",
+								"upload"
 							]
 						}
 					},
