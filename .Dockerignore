@@ -1,0 +1,18 @@
+# Abaikan folder build dan dependency yang tidak diperlukan
+
+build/
+
+# Abaikan file konfigurasi lingkungan dan kredensial sensitif
+.env
+*.pem
+*.key
+
+# Abaikan file IDE/editor
+*.iml
+.idea/
+.vscode/
+
+# Abaikan file log dan cache
+*.log
+logs/
+.cache/
