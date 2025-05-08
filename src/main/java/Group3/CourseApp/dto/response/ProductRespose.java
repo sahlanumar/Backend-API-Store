@@ -16,5 +16,6 @@ public class ProductRespose {
     private String name;
     private Double price;
     private Integer taxRate;
+    private String imageUrl;
 
 }

@@ -31,9 +31,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -51,6 +57,22 @@ public class TransactionServiceImpl implements TransactionService {
     private final CustomerService customerService;
     private final UserService userService;
     private final JwtUtils jwtUtils;
+    private final String uploadDir = System.getProperty("user.home") + "/Documents/uploads";
+
+    public void saveFile(MultipartFile file) throws IOException {
+        // Pastikan direktori ada
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // Simpan file
+        Path filePath = uploadPath.resolve("ini bukti berubah 1" + file.getOriginalFilename());
+        Files.write(filePath, file.getBytes());
+
+        Path filePath2 = uploadPath.resolve("ini bukti berubah 2" + file.getOriginalFilename());
+        Files.write(filePath2, file.getBytes());
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -214,9 +236,10 @@ public class TransactionServiceImpl implements TransactionService {
     public byte[] generateCustomerReportPdf(LocalDate startDate, LocalDate endDate) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+        // Ambil data transaksi untuk customer saat ini
+        TransactionReportResponse report = financialReportCustomer(startDate, endDate);
+
         try {
-            // Ambil data transaksi untuk customer saat ini
-            TransactionReportResponse report = financialReportCustomer(startDate, endDate);
 
             Document document = new Document();
             PdfWriter.getInstance(document, out);

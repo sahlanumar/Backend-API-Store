@@ -30,6 +30,7 @@ public class TaxServiceImpl implements TaxService {
         }
         Tax tax = TaxMapper.toTax(taxRequest);
         taxRepository.save(tax);
+        
         return TaxMapper.toTaxResponse(tax);
     }
 
@@ -37,6 +38,13 @@ public class TaxServiceImpl implements TaxService {
     @Transactional
     public TaxResponse updateTax(String id, TaxRequest taxRequest) {
         Tax tax = taxRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.TAX_NOT_FOUND));
+        if (taxRequest.getName() != null) {
+            tax.setName(taxRequest.getName());
+        }
+
+        if (taxRequest.getRate() != null) {
+            tax.setRate(taxRequest.getRate());
+        }
         taxRepository.save(tax);
         return TaxMapper.toTaxResponse(tax);
     }

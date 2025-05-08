@@ -14,6 +14,7 @@ public class ProductMapper {
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
+                .imageUrl(product.getImgUrl())
                 .taxRate(product.getTaxes().stream().mapToInt(Tax -> Tax.getRate()).sum())
                 .build();
     }

@@ -31,7 +31,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<CommonResponse<ProductRespose>> updateProduct(
             @PathVariable String id,
-            @ModelAttribute ProductRequest productRequest,
+            @Valid @RequestBody ProductRequest productRequest,
             @RequestParam(value = "file", required = false) MultipartFile file) {
         ProductRespose response = productService.updateProductById(id, productRequest,file);
         return ResponseUtil.buildResponse(HttpStatus.OK, "Product updated successfully", response);

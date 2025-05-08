@@ -26,6 +26,12 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    @Column(name = "public_id")
+    private String publicId;
+
     @ManyToMany
     @JoinTable(
             name = "product_tax",

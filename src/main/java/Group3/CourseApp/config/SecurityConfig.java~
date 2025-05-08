@@ -103,7 +103,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/transactions").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.DELETE,"/api/transactions/{id}").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.GET,"/api/transactions/report/pdf").hasAnyRole("CUSTOMER")
-                        .requestMatchers(HttpMethod.POST,"/api/transactions/upload").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/transactions/upload").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/transactions/report/total-paid-per-product").hasAnyRole("ADMIN", "STAFF")
 
 

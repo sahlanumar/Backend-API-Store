@@ -1,5 +1,6 @@
 package Group3.CourseApp.Service.ServiceImpl;
 
+import Group3.CourseApp.Service.CloudinaryService;
 import Group3.CourseApp.Service.ProductService;
 import Group3.CourseApp.Service.TaxService;
 import Group3.CourseApp.dto.request.ProductRequest;
@@ -12,8 +13,11 @@ import Group3.CourseApp.mapper.ProductMapper;
 import Group3.CourseApp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,27 +26,47 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final TaxService taxService;
+    private final CloudinaryService cloudinaryService;
 
 
     @Override
-    public ProductRespose addProduct(ProductRequest productRequest) {
+    public ProductRespose addProduct(ProductRequest productRequest, MultipartFile file) {
         Product product = ProductMapper.toProduct(productRequest);
         Set<Tax> taxes =  productRequest.getTaxesId().stream()
                 .map(taxService::findTaxById)
                 .collect(Collectors.toSet());
         product.setTaxes(taxes);
+        if(file != null) {
+            try {
+                Map uploadResult = cloudinaryService.uploadFile(file);
+                product.setImgUrl(uploadResult.get("url").toString());
+                product.setPublicId(uploadResult.get("public_id").toString());
+            } catch (IOException e) {
+                throw new CustomException(ErrorCode.FILE_UPLOAD_FAILED);
+            }
+        }
         productRepository.save(product);
         return ProductMapper.toProductRespose(product);
     }
 
     @Override
-    public ProductRespose updateProductById(String id, ProductRequest productRequest) {
+    public ProductRespose updateProductById(String id, ProductRequest productRequest, MultipartFile file) {
         Product product = findProductById(id);
         if(productRequest.getName() != null){
             product.setName(productRequest.getName());
         }
         if (productRequest.getPrice() != null) {
             product.setPrice(productRequest.getPrice());
+        }
+        if(file != null) {
+            try {
+                cloudinaryService.deleteFile(product.getPublicId());
+                Map uploadResult = cloudinaryService.uploadFile(file);
+                product.setImgUrl(uploadResult.get("url").toString());
+                product.setPublicId(uploadResult.get("public_id").toString());
+            } catch (IOException e) {
+                throw new CustomException(ErrorCode.FILE_UPLOAD_FAILED);
+            }
         }
         productRepository.save(product);
         return ProductMapper.toProductRespose(product);

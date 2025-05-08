@@ -1,4 +1,4 @@
-spring.application.name=CourseApp
+spring.application.name=StoreApp
 
 
 spring.jpa.hibernate.ddl-auto=update

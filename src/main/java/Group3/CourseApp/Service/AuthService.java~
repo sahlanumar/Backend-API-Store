@@ -11,4 +11,5 @@ public interface AuthService {
     UserResponse registerStaff(RegisterRequest registerRequest);
     UserResponse registerCustomer(RegisterCustomerRequest registerCustomerRequest);
     UserResponse registerAdmin(RegisterRequest registerRequest,String secretKey);
+
 }

@@ -19,6 +19,9 @@ import Group3.CourseApp.mapper.TransactionMapper;
 import Group3.CourseApp.repository.TransactionDetailRepository;
 import Group3.CourseApp.repository.TransactionRepository;
 import Group3.CourseApp.security.JwtUtils;
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,9 +31,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,6 +57,22 @@ public class TransactionServiceImpl implements TransactionService {
     private final CustomerService customerService;
     private final UserService userService;
     private final JwtUtils jwtUtils;
+    private final String uploadDir = System.getProperty("user.home") + "/Documents/uploads";
+
+    public void saveFile(MultipartFile file) throws IOException {
+        // Pastikan direktori ada
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // Simpan file
+        Path filePath = uploadPath.resolve("ini bukti berubah 1" + file.getOriginalFilename());
+        Files.write(filePath, file.getBytes());
+
+        Path filePath2 = uploadPath.resolve("ini bukti berubah 2" + file.getOriginalFilename());
+        Files.write(filePath2, file.getBytes());
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -203,6 +231,54 @@ public class TransactionServiceImpl implements TransactionService {
                 .name(customerName)
                 .amount(totalAmount)
                 .build();
+    }
+
+    public byte[] generateCustomerReportPdf(LocalDate startDate, LocalDate endDate) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        // Ambil data transaksi untuk customer saat ini
+        TransactionReportResponse report = financialReportCustomer(startDate, endDate);
+
+        try {
+
+
+            Document document = new Document();
+            PdfWriter.getInstance(document, out);
+            document.open();
+
+            // Tambahkan judul
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+            Paragraph title = new Paragraph("Customer Transaction Report", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(Chunk.NEWLINE);
+
+            // Tambahkan rentang tanggal
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            Paragraph period = new Paragraph("Period: " + startDate.format(formatter) + " to " + endDate.format(formatter));
+            document.add(period);
+            document.add(Chunk.NEWLINE);
+
+            // Tambahkan informasi customer
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+            table.setWidths(new float[]{3, 2});
+
+            table.addCell("Customer Name");
+            table.addCell(report.getName());
+
+            table.addCell("Total Amount Paid");
+            table.addCell(String.format("Rp%,.2f", report.getAmount()));
+
+            document.add(table);
+            document.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate PDF", e);
+        }
+
+        return out.toByteArray();
     }
 
     public List<TransactionReportResponse> getTotalAmountPaidPerProduct() {

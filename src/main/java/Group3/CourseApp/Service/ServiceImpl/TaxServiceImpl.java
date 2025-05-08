@@ -30,6 +30,7 @@ public class TaxServiceImpl implements TaxService {
         }
         Tax tax = TaxMapper.toTax(taxRequest);
         taxRepository.save(tax);
+
         return TaxMapper.toTaxResponse(tax);
     }
 

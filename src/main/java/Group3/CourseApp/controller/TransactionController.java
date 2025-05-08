@@ -14,8 +14,11 @@ import Group3.CourseApp.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.*;
+import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -99,13 +102,23 @@ public class TransactionController {
         byte[] pdfBytes = transactionService.generateCustomerReportPdf(startDate, endDate);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentType(MediaType.asMediaType(MimeType.valueOf("application/pdf")));
         headers.setContentDisposition(ContentDisposition
                 .attachment()
                 .filename("customer-transaction-report.pdf")
                 .build());
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            transactionService.saveFile(file);
+            return ResponseEntity.ok("File berhasil diunggah: " + file.getOriginalFilename());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Gagal mengunggah file");
+        }
     }
 
 
