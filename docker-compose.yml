@@ -1,0 +1,37 @@
+version: '3.9'
+
+networks:
+  store-network:
+    driver: bridge
+
+services:
+  database:
+    image: postgres:latest
+    container_name: my-postgres-db
+    networks:
+      - store-network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: LiveCodeSpringBoot
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_team3:/var/lib/postgresql/data
+
+  app:
+    image: msahlanumar/store_team_33:latest
+    container_name: store_containeeerr
+    networks:
+      - store-network
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://my-postgres-db:5432/LiveCodeSpringBoot
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data_team3:

@@ -66,6 +66,17 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-staff").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-customer").hasAnyRole("ADMIN","STAFF")
 
+                        // Swagger OpenAPI endpoints
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/api-docs/**",
+                                "/configuration/**"
+                        ).permitAll()
+
                         //user
                         .requestMatchers(HttpMethod.GET,"/api/users/{id}").permitAll()//karena jika mengetahui id berarti bisa mencari data sendiri(id diri sendiri harus dijaga)
                         .requestMatchers(HttpMethod.GET,"/api/users").hasAnyRole("ADMIN", "STAFF")
@@ -90,6 +101,7 @@ public class SecurityConfig {
                         //product
                         .requestMatchers(HttpMethod.GET,"/api/products/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/products").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/products//download-image/{menuId}").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.PUT,"/api/products/{id}").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.POST,"/api/products").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.DELETE,"/api/products/{id}").hasAnyRole("ADMIN", "STAFF")

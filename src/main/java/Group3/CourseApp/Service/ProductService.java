@@ -16,4 +16,5 @@ public interface ProductService {
     ProductRespose addTaxToProduct(String productId,String taxId);
     ProductRespose removeTaxFromProduct(String productId,String taxId);
     Product findProductById(String id);
+    String getImageUrlByMenuId(String id);
 }

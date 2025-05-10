@@ -113,4 +113,10 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
         return product;
     }
+
+    @Override
+    public String getImageUrlByMenuId(String id) {
+        Product product = findProductById(id);
+        return product.getImgUrl();
+    }
 }
