@@ -11,7 +11,7 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "AkuAdmin",
+					"name": "Register Admin",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -23,7 +23,11 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"admin22\",\r\n    \"email\" : \"admin22@gmail.com\",\r\n    \"password\" : \"admin123\"\r\n}",
+							"raw": "{
+    "username" : "admin22",
+    "email" : "admin22@gmail.com",
+    "password" : "admin123"
+}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -50,17 +54,13 @@
 					"name": "Login",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkc2FkYXNkYXNkc2FkYSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzQ2MTUwMDM5LCJleHAiOjE3NDYxNTM2MzksImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.LjGdXFStXCEt_Kg0atTUcGdJNuRNzrbyike3Qp24R48",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"admin22\",\r\n    \"password\" : \"admin123\"\r\n}",
+							"raw": "{
+    "username" : "admin22",
+    "password" : "admin123"
+}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -84,19 +84,17 @@
 					"response": []
 				},
 				{
-					"name": "AkuStaff",
+					"name": "Register Staff",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzQ2MzIzNTgzLCJleHAiOjE3NDYzMjcxODMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.INVwyYtBZVbMuc60NYsdPl6sujKcVP11LkNN_gqh8cE",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"staff\",\r\n    \"email\" : \"staff@gmail.com\",\r\n    \"password\" : \"staff123\"\r\n}",
+							"raw": "{
+    "username" : "staff",
+    "email" : "staff@gmail.com",
+    "password" : "staff123"
+}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,19 +118,21 @@
 					"response": []
 				},
 				{
-					"name": "AkuCustomer",
+					"name": "Register Customer",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"dsadsada\",\r\n    \"email\" : \"dsadasda@gmail.com\",\r\n    \"password\" : \"customer123\",\r\n    \"name\" : \"eren yeaer\",\r\n    \"birthPlace\" : \"paradise\",\r\n    \"birthDate\" : \"16-07-02\"\r\n\r\n}",
+							"raw": "{
+    "username" : "dsadsada",
+    "email" : "dsadasda@gmail.com",
+    "password" : "customer123",
+    "name" : "eren yeaer",
+    "birthPlace" : "paradise",
+    "birthDate" : "16-07-2002"
+
+}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -161,7 +161,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "GetById",
+					"name": "Get User By Id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -194,16 +194,10 @@
 					"response": []
 				},
 				{
-					"name": "getAll",
+					"name": "Get All Users",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/users?page=0&size=10",
 							"protocol": "http",
@@ -230,19 +224,18 @@
 					"response": []
 				},
 				{
-					"name": "UpdateBylogin",
+					"name": "Update User By Login",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"email\" : null,\r\n  \"password\":null\r\n}\r\n",
+							"raw": "{
+  "username": "admin",
+  "email" : null,
+  "password":null
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,16 +258,10 @@
 					"response": []
 				},
 				{
-					"name": "Dellet",
+					"name": "Delete User By Id",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/users/3b956cf3-447b-4dfc-9885-9009a6560fb5",
 							"protocol": "http",
@@ -292,19 +279,18 @@
 					"response": []
 				},
 				{
-					"name": "UpdateById",
+					"name": "Update User By Id",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"email\" : null,\r\n  \"password\":null\r\n}\r\n",
+							"raw": "{
+  "username": "admin",
+  "email" : null,
+  "password":null
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -333,7 +319,7 @@
 			"name": "Customer",
 			"item": [
 				{
-					"name": "GetById",
+					"name": "Get Customer By Id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -366,16 +352,10 @@
 					"response": []
 				},
 				{
-					"name": "getAll",
+					"name": "Get All Customers",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/customers?page=0&size=10",
 							"protocol": "http",
@@ -402,19 +382,18 @@
 					"response": []
 				},
 				{
-					"name": "UpdateBylogin",
+					"name": "Update Customer By Login",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2MzM2OTgzLCJleHAiOjE3NDYzNDA1ODMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.e2vHbELiCf1rWYrTbe-4nITgeL2BSNZLRPdxwfSX88I",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"eren yeager\",\r\n  \"birthDate\" : null,\r\n  \"birthPlace\":null\r\n}\r\n",
+							"raw": "{
+  "name": "eren yeager",
+  "birthDate" : null,
+  "birthPlace":null
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -437,19 +416,18 @@
 					"response": []
 				},
 				{
-					"name": "UpdateById",
+					"name": "Update Customer By Id",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"eren yeager\",\r\n  \"birthDate\" : \"16-02-02\",\r\n  \"birthPlace\":null\r\n}\r\n",
+							"raw": "{
+  "name": "eren yeager",
+  "birthDate" : "16-02-2002",
+  "birthPlace":null
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -473,16 +451,10 @@
 					"response": []
 				},
 				{
-					"name": "Dellet",
+					"name": "Delete Customer By Id",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/customers/cd5ac555-3597-4bb3-8b20-2b6e20423997",
 							"protocol": "http",
@@ -505,19 +477,17 @@
 			"name": "Tax",
 			"item": [
 				{
-					"name": "AddTax",
+					"name": "Add Tax",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"service\",\r\n  \"rate\": 10\r\n}\r\n",
+							"raw": "{
+  "name": "service",
+  "rate": 10
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -540,19 +510,13 @@
 					"response": []
 				},
 				{
-					"name": "GetById",
+					"name": "Get Tax By Id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -579,16 +543,10 @@
 					"response": []
 				},
 				{
-					"name": "getAll",
+					"name": "Get All Taxes",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/taxes?page=0&size=10&",
 							"protocol": "http",
@@ -619,19 +577,17 @@
 					"response": []
 				},
 				{
-					"name": "UpdateById",
+					"name": "Update Tax By Id",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Pajak Penjualan\",\r\n  \"rate\": 12\r\n}\r\n",
+							"raw": "{
+  "name": "Pajak Penjualan",
+  "rate": 12
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -655,16 +611,10 @@
 					"response": []
 				},
 				{
-					"name": "Dellet",
+					"name": "Delete Tax By Id",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/taxes/9a98971d-189f-4aea-9857-ad79ba5dcb72",
 							"protocol": "http",
@@ -687,16 +637,10 @@
 			"name": "Product",
 			"item": [
 				{
-					"name": "AddProduct",
+					"name": "Add Product",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDY2OTM3MjcsImV4cCI6MTc0NjcyOTcyNywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.81hLl_9NBwT24Zuq9I9evwkLLg7HFnh2Mpac8jIcsCU",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -743,19 +687,13 @@
 					"response": []
 				},
 				{
-					"name": "GetById",
+					"name": "Get Product By Id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDY2OTM3MjcsImV4cCI6MTc0NjcyOTcyNywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.81hLl_9NBwT24Zuq9I9evwkLLg7HFnh2Mpac8jIcsCU",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -782,16 +720,10 @@
 					"response": []
 				},
 				{
-					"name": "getAll",
+					"name": "Get All Products",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/products?page=0&size=10&",
 							"protocol": "http",
@@ -822,16 +754,10 @@
 					"response": []
 				},
 				{
-					"name": "addtax to product",
+					"name": "Add Tax to Product",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzg1MDMsImV4cCI6MTc0NjM0MjEwMywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.GOHVBZM6CjDS3PnBaxVOcAYNMgBumA_v-lnfbvfJDR4",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -869,13 +795,7 @@
 					"name": "Delete tax from product",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2NDA1OTczLCJleHAiOjE3NDY0NDE5NzMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.gfaFa59k-eCwDLZeN0uATHsUhZiVT9oXDSlffBEOpEk",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2/tax/604f9226-1d95-4ef0-88d9-041acb7ac32a",
 							"protocol": "http",
@@ -895,16 +815,10 @@
 					"response": []
 				},
 				{
-					"name": "UpdateById",
+					"name": "Update Product By Id",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDY2OTM3MjcsImV4cCI6MTc0NjcyOTcyNywiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.81hLl_9NBwT24Zuq9I9evwkLLg7HFnh2Mpac8jIcsCU",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -947,16 +861,10 @@
 					"response": []
 				},
 				{
-					"name": "Dellet",
+					"name": "Delete Product By Id",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzMzY2MjUsImV4cCI6MTc0NjM0MDIyNSwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.biyGtm_Q0EvH5SlNBex18-mwYqeRHg7QWhnQNSRNOZ8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/products/2614c16c-7698-4dd6-b4ed-6cd8be43c3e2",
 							"protocol": "http",
@@ -979,19 +887,26 @@
 			"name": "Transaction",
 			"item": [
 				{
-					"name": "AddTransaction",
+					"name": "Create Transaction",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"customerId\": \"d4ecbdb4-4995-472b-872f-6e2ac9410a42\",\r\n  \"details\": [\r\n    {\r\n      \"productId\": \"25d8f076-d182-4a39-bc96-44417a17bbe1\",\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"productId\": \"ff86a5f1-5bfb-42e0-8081-de6c4dc1250a\",\r\n      \"quantity\": 1\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{
+  "customerId": "d4ecbdb4-4995-472b-872f-6e2ac9410a42",
+  "details": [
+    {
+      "productId": "25d8f076-d182-4a39-bc96-44417a17bbe1",
+      "quantity": 2
+    },
+    {
+      "productId": "ff86a5f1-5bfb-42e0-8081-de6c4dc1250a",
+      "quantity": 1
+    }
+  ]
+}
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1014,19 +929,13 @@
 					"response": []
 				},
 				{
-					"name": "GetById",
+					"name": "Get Transaction By Id",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -1053,16 +962,10 @@
 					"response": []
 				},
 				{
-					"name": "getAll",
+					"name": "Get All Transactions",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/transactions?startDate=2025-01-01&endDate=2025-12-31&customerName=eren&paymentStatuses=PAID,NOT_PAID&paymentMethods=CASH&createdBy=admin22&page=0&size=10&sortField=transactionTime&sortDirection=desc",
 							"protocol": "http",
@@ -1121,19 +1024,14 @@
 					"response": []
 				},
 				{
-					"name": "Cancel tr",
+					"name": "Cancel Transaction",
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n",
+							"raw": "
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1158,19 +1056,15 @@
 					"response": []
 				},
 				{
-					"name": "Pay tr",
+					"name": "Pay Transaction",
 					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"method": "POST",
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n\r\n",
+							"raw": "
+
+",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1178,7 +1072,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/transactions/034643d6-ec7f-43b5-bfe0-4626e1b06935/complete?paymentMethod=CASH",
+							"raw": "http://localhost:8080/api/transactions/pay/034643d6-ec7f-43b5-bfe0-4626e1b06935",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1187,32 +1081,20 @@
 							"path": [
 								"api",
 								"transactions",
-								"034643d6-ec7f-43b5-bfe0-4626e1b06935",
-								"complete"
-							],
-							"query": [
-								{
-									"key": "paymentMethod",
-									"value": "CASH"
-								}
+								"pay",
+								"034643d6-ec7f-43b5-bfe0-4626e1b06935"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "ReportByCustomerId",
+					"name": "Get My Report",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/transactions/report/total-paid?customerId=d4ecbdb4-4995-472b-872f-6e2ac9410a42&startDate=2025-01-01&endDate=2025-12-31",
+							"raw": "http://localhost:8080/api/transactions/me/reports?type=TRANSACTION&format=PDF&startDate=2025-01-01&endDate=2025-12-31",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1221,13 +1103,17 @@
 							"path": [
 								"api",
 								"transactions",
-								"report",
-								"total-paid"
+								"me",
+								"reports"
 							],
 							"query": [
 								{
-									"key": "customerId",
-									"value": "d4ecbdb4-4995-472b-872f-6e2ac9410a42"
+									"key": "type",
+									"value": "TRANSACTION"
+								},
+								{
+									"key": "format",
+									"value": "PDF"
 								},
 								{
 									"key": "startDate",
@@ -1243,84 +1129,10 @@
 					"response": []
 				},
 				{
-					"name": "ReportAmountCusByLogin",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjdXN0b21lciIsInJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiXSwiaWF0IjoxNzQ2NDA1OTczLCJleHAiOjE3NDY0NDE5NzMsImlzcyI6IlJlc3RhdXJhbnQgQXBwIn0.gfaFa59k-eCwDLZeN0uATHsUhZiVT9oXDSlffBEOpEk",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8080/api/transactions/report/pdf",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"transactions",
-								"report",
-								"pdf"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getProductReport",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/transactions/report/total-paid-per-product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"transactions",
-								"report",
-								"total-paid-per-product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Dellet",
+					"name": "Delete Transaction By Id",
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjIyIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDYzNDA1NjYsImV4cCI6MTc0NjM3NjU2NiwiaXNzIjoiUmVzdGF1cmFudCBBcHAifQ.5i-2ZAxx_s2b8btZAz2VWY-8uqiz-V8DAsibIaWTgh8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8080/api/transactions/05c80c47-2627-44c1-ac14-498db1a3af22",
 							"protocol": "http",
@@ -1338,7 +1150,7 @@
 					"response": []
 				},
 				{
-					"name": "Upload",
+					"name": "Upload Transaction File",
 					"request": {
 						"method": "POST",
 						"header": [],
