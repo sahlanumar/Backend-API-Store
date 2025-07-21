@@ -60,11 +60,23 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-admin").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-staff").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-customer").hasAnyRole("ADMIN","STAFF")
+
+                        // Swagger OpenAPI endpoints
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/api-docs/**",
+                                "/configuration/**"
+                        ).permitAll()
 
                         //user
                         .requestMatchers(HttpMethod.GET,"/api/users/{id}").permitAll()//karena jika mengetahui id berarti bisa mencari data sendiri(id diri sendiri harus dijaga)
@@ -84,7 +96,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/taxes/{id}").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.GET,"/api/taxes").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.PUT,"/api/taxes/{id}").hasAnyRole("ADMIN", "STAFF")
-                        .requestMatchers(HttpMethod.POST,"/api/taxes").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.POST,"/api/taxes").permitAll()
                         .requestMatchers(HttpMethod.DELETE,"/api/taxes/{id}").hasAnyRole("ADMIN", "STAFF")
 
                         //product
@@ -101,6 +113,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/transactions/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/transactions").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.PUT,"/api/transactions/{id}/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.POST,"api/transactions/pay/{transactionId}").hasAnyRole("ADMIN", "STAFF", "CUSTOMER")
                         .requestMatchers(HttpMethod.POST,"/api/transactions").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.DELETE,"/api/transactions/{id}").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.GET,"/api/transactions/report/pdf").hasAnyRole("CUSTOMER")

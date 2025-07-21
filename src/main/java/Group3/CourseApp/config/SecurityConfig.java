@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-admin").permitAll()
@@ -112,6 +113,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/transactions/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/transactions").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.PUT,"/api/transactions/{id}/**").hasAnyRole("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.POST,"api/transactions/pay/{transactionId}").hasAnyRole("ADMIN", "STAFF", "CUSTOMER")
                         .requestMatchers(HttpMethod.POST,"/api/transactions").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.DELETE,"/api/transactions/{id}").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers(HttpMethod.GET,"/api/transactions/report/pdf").hasAnyRole("CUSTOMER")

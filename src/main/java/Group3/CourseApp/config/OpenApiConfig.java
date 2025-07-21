@@ -37,7 +37,13 @@ public class OpenApiConfig {
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")
-                                        .description("Enter JWT token with Bearer prefix (e.g. 'Bearer eyJhbGciOiJIUzI1...')")))
+                                        .description("Enter JWT token with Bearer prefix (e.g. 'Bearer eyJhbGciOiJIUzI1...')"))
+                        .addSecuritySchemes("superAdminKey",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.APIKEY)
+                                        .name("superAdminKey")
+                                        .in(SecurityScheme.In.HEADER)
+                                        .description("Super Admin secret key")))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
     }
 }

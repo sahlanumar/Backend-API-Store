@@ -4,8 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public enum ErrorCode {
 
-    MIDTRANS_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Midtrans error"),
-
     FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "File not found"),
     FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "File upload failed"),
 

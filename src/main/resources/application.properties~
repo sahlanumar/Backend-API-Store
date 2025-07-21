@@ -1,7 +1,9 @@
 spring.application.name=StoreApp
 
+
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+
 
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.url=jdbc:postgresql://localhost:5432/LiveCodeSpringBoot

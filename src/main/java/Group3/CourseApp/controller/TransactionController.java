@@ -2,9 +2,7 @@ package Group3.CourseApp.controller;
 
 
 import Group3.CourseApp.Service.TransactionService;
-import Group3.CourseApp.constant.ApiEndpoint;
-import Group3.CourseApp.constant.PaymentMethod;
-import Group3.CourseApp.constant.TransactionStatus;
+import Group3.CourseApp.constant.*;
 import Group3.CourseApp.dto.request.TransactionRequest;
 import Group3.CourseApp.dto.response.CommonResponse;
 import Group3.CourseApp.dto.response.GetAllTransactionResponse;
@@ -14,6 +12,8 @@ import Group3.CourseApp.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(ApiEndpoint.TRANSACTION)
@@ -53,12 +54,15 @@ public class TransactionController {
         return ResponseUtil.buildResponse(HttpStatus.OK, "Transaction cancelled successfully", response);
     }
 
-    @PutMapping("/{id}/complete")
-    public ResponseEntity<CommonResponse<TransactionResponse>> completeTransaction(
-            @PathVariable String id,
-            @RequestParam PaymentMethod paymentMethod) {
-        TransactionResponse response = transactionService.completeTransaction(id, paymentMethod);
-        return ResponseUtil.buildResponse(HttpStatus.OK, "Transaction completed successfully", response);
+    @PostMapping("/pay/{transactionId}")
+    public ResponseEntity<Map<String, String>> payTransaction(@PathVariable String transactionId) {
+        try {
+            Map<String, String> response = transactionService.createSnapToken(transactionId);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to create Snap token: " + e.getMessage()));
+        }
     }
 
     @GetMapping
@@ -80,36 +84,6 @@ public class TransactionController {
         return ResponseUtil.buildResponse(HttpStatus.OK, "Transactions retrieved successfully", response.getContent(), response);
     }
 
-    @GetMapping("/report/total-paid")
-    public ResponseEntity<CommonResponse<TransactionReportResponse>> getTotalPaidByCustomer(
-            @RequestParam String customerId,
-            @RequestParam(defaultValue = "2000-01-01") LocalDate startDate,
-            @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}")  LocalDate endDate
-    ) {
-        TransactionReportResponse response = transactionService.getTotalAmountPaidByCustomerBetweenDates(customerId, startDate, endDate);
-        return ResponseUtil.buildResponse(HttpStatus.OK, "Total amount paid by customer retrieved successfully", response);
-    }
-
-    @GetMapping("/report/pdf")
-    public ResponseEntity<byte[]> downloadCustomerReportPdf(
-            @RequestParam(defaultValue = "2000-01-01") LocalDate startDate,
-            @RequestParam(required = false) LocalDate endDate
-    ) {
-        if (endDate == null) {
-            endDate = LocalDate.now();
-        }
-
-        byte[] pdfBytes = transactionService.generateCustomerReportPdf(startDate, endDate);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.asMediaType(MimeType.valueOf("application/pdf")));
-        headers.setContentDisposition(ContentDisposition
-                .attachment()
-                .filename("customer-transaction-report.pdf")
-                .build());
-
-        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-    }
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -123,10 +97,40 @@ public class TransactionController {
 
 
 
-    @GetMapping("/report/total-paid-per-product")
-    public ResponseEntity<CommonResponse<List<TransactionReportResponse>>> getTotalPaidPerProduct() {
-        List<TransactionReportResponse> response = transactionService.getTotalAmountPaidPerProduct();
-        return ResponseUtil.buildResponse(HttpStatus.OK, "Total amount paid per product retrieved successfully", response);
-    }
+    @GetMapping("/me/reports") // Konvensi: '/me' untuk data milik user yang sedang login
+    public ResponseEntity<?> generateMyReport(
+            // 🔒 Ambil user yang sedang login dari konteks keamanan, BUKAN dari @RequestParam
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam ReportType type,
+            @RequestParam(defaultValue = "JSON") ReportFormat format,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate
+    ) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+        }
+
+        // Asumsi username adalah ID customer, sesuaikan jika perlu
+        String customerId = userDetails.getUsername();
+
+        // 1. Generate data laporan terlebih dahulu
+        ReportResponse reportData = reportService.generateReport(customerId, type, startDate, endDate);
+
+        // 2. Tentukan format output (PDF atau JSON)
+        if (format == ReportFormat.PDF) {
+            // Jika format PDF, panggil service untuk membuat file PDF
+            byte[] pdfBytes = pdfGenerationService.generateTransactionReportPdf(reportData);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("attachment", "my-transaction-report.pdf");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(pdfBytes);
+        } else {
+            // Format default adalah JSON
+            return ResponseUtil.buildResponse(HttpStatus.OK, "Report generated successfully", reportData);
+        }
 }
 

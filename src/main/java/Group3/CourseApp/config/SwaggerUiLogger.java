@@ -7,10 +7,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.web.context.WebServerApplicationContext;
 
-/**
- * Logs a clickable Swagger-UI URL as soon as the server is ready.
- * IntelliJ / VS Code consoles turn the http:// link into a hyperlink.
- */
+
 @Slf4j
 @Component
 public class SwaggerUiLogger implements ApplicationListener<ApplicationReadyEvent> {
