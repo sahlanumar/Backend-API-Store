@@ -1,13 +1,12 @@
 package Group3.CourseApp.controller;
 
 
+import Group3.CourseApp.Service.PdfGenerationService;
+import Group3.CourseApp.Service.ReportService;
 import Group3.CourseApp.Service.TransactionService;
 import Group3.CourseApp.constant.*;
 import Group3.CourseApp.dto.request.TransactionRequest;
-import Group3.CourseApp.dto.response.CommonResponse;
-import Group3.CourseApp.dto.response.GetAllTransactionResponse;
-import Group3.CourseApp.dto.response.TransactionReportResponse;
-import Group3.CourseApp.dto.response.TransactionResponse;
+import Group3.CourseApp.dto.response.*;
 import Group3.CourseApp.util.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,6 +28,8 @@ import java.util.Map;
 public class TransactionController {
 
     private final TransactionService transactionService;
+    private final ReportService reportService;
+    private final PdfGenerationService pdfGenerationService;
 
     @PostMapping
     public ResponseEntity<CommonResponse<TransactionResponse>> createTransaction(@RequestBody TransactionRequest request) {
@@ -68,7 +69,7 @@ public class TransactionController {
     @GetMapping
     public ResponseEntity<CommonResponse<List<GetAllTransactionResponse>>> getAllTransactions(
             @RequestParam(defaultValue = "2000-01-01") LocalDate startDate,
-            @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}")  LocalDate endDate,
+            @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate endDate,
             @RequestParam(required = false) String customerName,
             @RequestParam(required = false) List<TransactionStatus> paymentStatuses,
             @RequestParam(required = false) List<PaymentMethod> paymentMethods,
@@ -94,7 +95,6 @@ public class TransactionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Gagal mengunggah file");
         }
     }
-
 
 
     @GetMapping("/me/reports") // Konvensi: '/me' untuk data milik user yang sedang login
@@ -132,5 +132,6 @@ public class TransactionController {
             // Format default adalah JSON
             return ResponseUtil.buildResponse(HttpStatus.OK, "Report generated successfully", reportData);
         }
+    }
 }
 

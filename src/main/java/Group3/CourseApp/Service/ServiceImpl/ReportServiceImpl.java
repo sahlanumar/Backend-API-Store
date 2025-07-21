@@ -1,6 +1,7 @@
-package Group3.CourseApp.Service;
+package Group3.CourseApp.Service.ServiceImpl;
 
 
+import Group3.CourseApp.Service.ReportService;
 import Group3.CourseApp.constant.ReportType;
 import Group3.CourseApp.dto.response.ReportItem;
 import Group3.CourseApp.dto.response.ReportResponse;
